@@ -1,15 +1,16 @@
 name: Github Action No. 2
 
 on:
-  push: 
+  push:
     branches: ["main"]
-  # Allows us to run workflow from UI
+  # Allos us to run worflow from UI
+  workflow_dispatch:
 
-  workflow_dispatch: 
-permisions:
+permissions:
   contents: read
   pages: write
   id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,20 +21,20 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
       - name: Build Project
         run: npm run build
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v1
-        with: 
+        with:
           path: ./build
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: github-pages
-      url: ${{steps.deployment.outputs.page_url}}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to Github pages
         id: deployment
