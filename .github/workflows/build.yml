@@ -5,7 +5,7 @@ on:
     branches: ["main"]
   # Allows us to run workflow from UI
 
-  workflow-dispatch: 
+  workflow_dispatch: 
 permisions:
   contents: read
   pages: write
